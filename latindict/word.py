@@ -50,10 +50,11 @@ class Word:
 
     def get_ipa(self):
         ipa = ''
-        if self.data:
-            # Check if the word has any ['pronunciations']['text'] data
+        if self.data and self.data[0]['pronunciations']['text']:
             ipa_text = self.data[0]['pronunciations']['text'][0]
             match = re.search(r'IPA:\s*(/\S+/)', ipa_text)
             if match:
                 ipa = match.group(1)
+        else:
+            ipa = "Not set"
         return ipa
