@@ -10,6 +10,7 @@ class Word:
         self.parser.set_default_language('latin')
         self.word = word
         self.data = json.loads(json.dumps(self.parser.fetch(word)))
+        self.declension = self.get_declension()
         self.etymology = self.get_etymology()
         self.definitions = self.get_definitions()
         self.ipa = self.get_ipa()
@@ -50,6 +51,7 @@ class Word:
     def get_ipa(self):
         ipa = ''
         if self.data:
+            # Check if the word has any ['pronunciations']['text'] data
             ipa_text = self.data[0]['pronunciations']['text'][0]
             match = re.search(r'IPA:\s*(/\S+/)', ipa_text)
             if match:
